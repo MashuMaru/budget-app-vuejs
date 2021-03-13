@@ -1,36 +1,31 @@
 <template>
   <div class="salary">
-    <div>
+    <form action="submit">
       <label for="salary">Income: </label>
       <input
         placeholder="income"
         type="number"
         name="salary"
         id="salary"
+        v-on:keyup="emitToApp"
         v-model="salary"
       />
-    </div>
-    <Outgoing v-on:outgoingData="outgoingSum" />
-
-    <p>Total: {{ total }}</p>
+    </form>
   </div>
 </template>
 
 <script>
-import Outgoing from "./Outgoing.vue";
 export default {
-  components: { Outgoing },
+  emits: ["outgoingSalary"],
   data: function() {
     return {
       salary: null,
-      outgoing: null,
-      total: null,
     };
   },
   methods: {
-    outgoingSum(value) {
-      this.outgoing = value;
-      this.total = parseInt(this.salary) + parseInt(this.outgoing)
+    emitToApp(e) {
+      this.salary = e.target.value;
+      this.$emit("outgoingSalary", this.salary);
     },
   },
 };
