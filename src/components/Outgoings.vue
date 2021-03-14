@@ -1,32 +1,25 @@
 <template>
   <div>
-    <input type="text" name="" id="utility"/>
-    <input type="text" name="" id="cost" v-on:cost-information="cost" />
+    <p>
+      <span class="utility-nc">{{ utilityName }}: </span>
+      <span class="utility-nc">{{ utilityCost }}</span>
+      <span><button class="utility-btn">X</button></span>
+    </p>
   </div>
 </template>
 
 <script>
 export default {
-  data: function() {
-    return {
-      costInformation: [
-        {
-          id: "first-entry",
-          utility: "Rent",
-          cost: "£1000",
-        },
-      ],
-    };
-  },
-  methods: {
-    addCostUtility(name, cost) {
-      const newCost = {
-        id: new Date().toISOString(),
-        utility: name,
-        cost: cost,
-      };
-      this.costInformation.push(newCost);
+  props: {
+    utilityName: {
+      type: String,
     },
+    utilityCost: {
+      type: Number,
+    },
+  },
+  data: function() {
+    return {};
   },
 };
 </script>
@@ -36,5 +29,27 @@ input {
   pointer-events: none;
   border-bottom: 1px solid green;
   text-align: center;
+}
+
+p {
+  margin-bottom: 25px;
+}
+
+.utility-nc {
+  margin-left: 25px;
+  margin-right: 25px;
+  border-bottom: 1px solid green;
+  width: 150px;
+  color: white;
+}
+
+.utility-btn {
+  border: none !important; 
+
+}
+
+.utility-btn:hover {
+  border-radius:100% !important; 
+  background-color: red;
 }
 </style>

@@ -1,19 +1,22 @@
 <template>
   <div id="main">
     <Header title="Budget App" />
-    <Salary v-on:outgoingSalary="salaryInput" v-on:keyup="calculate" />
+    <Salary v-on:outgoingSalary="salaryInput" />
+    <!-- v-on:keyup="calculate" add back to <Salary /> for calculation on entering keys -->
     <OutgoingInputs />
     <Outgoings
       v-for="cost in costInformation"
       v-bind:key="cost"
-      v-bind:utility="cost.utility"
-      v-bind:cost="cost.cost"
+      v-bind:id="cost.id"
+      v-bind:utilityName="cost.utility"
+      v-bind:utilityCost="cost.cost"
     />
-    <TotalOutgoing v-on:outgoingCost="outgoingSum" v-on:keyup="calculate" />
+    <TotalOutgoing v-on:outgoingCost="outgoingSum" />
+    <!-- v-on:keyup="calculate" add back to <TotalOutgoing /> for calculation on entering keys -->
     <p v-if="salaryIsNotFilled">You have to enter a salary first.</p>
     <button v-on:click="calculate">Calculate</button>
     <p class="total">
-      Total: <span class="total-span"> £{{ total }} </span>
+      Total: <span class="total-span"> {{ total }} </span>
     </p>
   </div>
 </template>
@@ -26,7 +29,11 @@ import OutgoingInputs from "./components/OutgoingInputs.vue";
 import Outgoings from "./components/Outgoings.vue";
 
 export default {
-  inject: ["costInformation"],
+  provide: function() {
+    return {
+      costInfo: this.costInformation,
+    };
+  },
   components: { Header, Salary, TotalOutgoing, OutgoingInputs, Outgoings },
   data: function() {
     return {
@@ -34,6 +41,18 @@ export default {
       outgoing: null,
       total: null,
       salaryIsNotFilled: false,
+      costInformation: [
+        {
+          id: "first-entry",
+          utility: "Rent",
+          cost: "£1000",
+        },
+        {
+          id: "first-entry",
+          utility: "Rent",
+          cost: "£1000",
+        },
+      ],
     };
   },
   methods: {
@@ -48,7 +67,7 @@ export default {
         this.salaryIsNotFilled = true;
       } else {
         this.salaryIsNotFilled = false;
-        this.total = this.salary - this.outgoing;
+        this.total = "£" + (this.salary - this.outgoing);
       }
     },
   },
@@ -91,8 +110,8 @@ button {
   border-radius: 10px;
   padding: 10px;
   cursor: pointer;
+  outline: none;
 }
-
 
 button:hover {
   border: 1px solid white;
