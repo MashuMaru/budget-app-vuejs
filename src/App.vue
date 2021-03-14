@@ -1,7 +1,10 @@
 <template>
   <div id="main">
     <Header title="Budget App" />
-    <Salary v-on:outgoingSalary="salaryInput" />
+    <Salary
+      v-on:outgoingSalary="salaryInput"
+      v-on:click="salaryIsNotFilled = false"
+    />
     <!-- v-on:keyup="calculate" add back to <Salary /> for calculation on entering keys -->
     <OutgoingInputs v-on:cost-information="addExpenditure" />
     <Outgoings
@@ -65,14 +68,18 @@ export default {
         this.total = "£" + (this.salary - this.outgoing);
       }
     },
-    addExpenditure(utilityName, utilityCost ) {
-      const newCost = {
-        id: new Date().toISOString(),
-        utility: utilityName,
-        cost: utilityCost,
+    addExpenditure(utilityName, utilityCost) {
+      if (utilityName === "" && utilityCost === "") {
+        alert("INVALID INPUTS.");
+      } else {
+        const newCost = {
+          id: new Date().toISOString(),
+          utility: utilityName,
+          cost: utilityCost,
+        };
+        this.costInformation.unshift(newCost);
       }
-      this.costInformation.unshift(newCost);
-    }
+    },
   },
 };
 </script>
@@ -84,6 +91,7 @@ export default {
   margin-left: auto;
   margin-right: auto;
   background-color: black;
+  background-color: #2a253a;
   border-radius: 25px;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -93,9 +101,9 @@ export default {
   margin-top: 60px;
 }
 input {
-  width: 150px;
+  width: 100px;
   border: none;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #44a6a1;
   background-color: transparent;
   color: white;
   outline: none;
@@ -107,7 +115,7 @@ input {
 }
 
 button {
-  border: 1px solid white;
+  border: 1px solid #328dad;
   background-color: transparent;
   color: white;
   border-radius: 10px;
@@ -117,8 +125,8 @@ button {
 }
 
 button:hover {
-  border: 1px solid white;
-  background-color: white;
+  border: 1px solid #2fac97;
+  background-color: #2fac97;
   color: black;
 }
 
@@ -127,7 +135,7 @@ button:hover {
 }
 
 .total-span {
-  color: green;
+  color: #44a6a1;
   font-weight: bold;
 }
 </style>

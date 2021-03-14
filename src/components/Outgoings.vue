@@ -11,12 +11,8 @@
 <script>
 export default {
   props: {
-    utilityName: {
-      type: String,
-    },
-    utilityCost: {
-      type: String,
-    },
+    utilityName: String,
+    utilityCost: String,
   },
   data: function() {
     return {};
@@ -31,14 +27,14 @@ input {
   text-align: center;
 }
 
-p {
+/* p {
   margin-bottom: 25px;
-}
+} */
 
 .utility-nc {
   margin-left: 25px;
   margin-right: 25px;
-  border-bottom: 1px solid green;
+  border-bottom: 1px solid #44A6A1;
   width: 150px;
   color: white;
 }
@@ -48,7 +44,7 @@ p {
 }
 
 .utility-btn:hover {
-  border-radius: 100% !important;
-  background-color: red;
+  background-color: transparent;
+  color: #f39189;
 }
 </style>

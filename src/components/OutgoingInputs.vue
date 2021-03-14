@@ -20,10 +20,7 @@ export default {
   },
   methods: {
     submitCosts() {
-      this.$emit("cost-information", {
-        utility: this.utility,
-        cost: this.cost,                         
-      });
+      this.$emit("cost-information", this.utility, this.cost);
     },
   },
 };

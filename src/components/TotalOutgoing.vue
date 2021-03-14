@@ -13,7 +13,7 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 export default {
   emits: ["outgoingCost"],
   data: function() {
@@ -30,4 +30,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+div {
+  margin-top: 50px;
+}
+</style>
