@@ -1,17 +1,15 @@
 <template>
   <div>
-    <form action="submit">
-      <label for="outgoing">Total Outgoing: </label>
-      <input
-        id="outgoing"
-        placeholder="outgoing"
-        type="number"
-        name="outgoing"
-        v-model="outgoingCost"
-        v-on:keyup="emitToApp"
-      />
-      <button>Add</button>
-    </form>
+    <label for="outgoing">Total Outgoing: </label>
+    <input
+      id="outgoing"
+      placeholder="outgoing"
+      type="number"
+      name="outgoing"
+      v-model="outgoingCost"
+      v-on:keyup="emitToApp"
+    />
+    <!-- <button>Add</button> -->
   </div>
 </template>
 
