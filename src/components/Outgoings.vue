@@ -1,10 +1,19 @@
 <template>
   <div>
-    <p>
+    <div>
       <span class="utility-nc">{{ utilityName }}: </span>
       <span class="utility-nc">£{{ utilityCost }}</span>
-      <span><button class="utility-btn">X</button></span>
-    </p>
+      <span>
+        <button
+          class="utility-btn"
+          v-on:mouseover="mousedOver = true"
+          v-on:mouseleave="mousedOver = false"
+          name="delete">
+          X
+        </button>
+        </span>
+      <label for="delete" v-if="mousedOver">delete</label>
+    </div>
   </div>
 </template>
 
@@ -15,7 +24,9 @@ export default {
     utilityCost: String,
   },
   data: function() {
-    return {};
+    return {
+      mousedOver: false,
+    };
   },
 };
 </script>
@@ -27,14 +38,16 @@ input {
   text-align: center;
 }
 
-/* p {
-  margin-bottom: 25px;
-} */
+label {
+  font-style: italic;
+  font-size: 14px;
+  position: absolute;
+}
 
 .utility-nc {
   margin-left: 25px;
   margin-right: 25px;
-  border-bottom: 1px solid #44A6A1;
+  border-bottom: 1px solid #44a6a1;
   width: 150px;
   color: white;
 }
