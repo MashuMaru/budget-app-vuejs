@@ -1,10 +1,11 @@
 <template>
   <div id="main">
-      <Header />
-      <Salary v-on:outgoingSalary="salaryInput" />
-      <Outgoing v-on:outgoingCost="outgoingSum" v-on:keyup="calculate" />
-      <button v-on:click="calculate">Calculate</button>
-      <p>Total: {{ total }}</p>
+    <Header title="Budget App" />
+    <Salary v-on:outgoingSalary="salaryInput" v-on:keyup="calculate" />
+    <Outgoing v-on:outgoingCost="outgoingSum" v-on:keyup="calculate" />
+    <p v-if="(salaryIsNotFilled)">You have to enter a salary first.</p>
+    <button v-on:click="calculate">Calculate</button>
+    <p>Total: {{ total }}</p>
   </div>
 </template>
 
@@ -20,6 +21,7 @@ export default {
       salary: null,
       outgoing: null,
       total: null,
+      salaryIsNotFilled: false,
     };
   },
   methods: {
@@ -31,8 +33,9 @@ export default {
     },
     calculate() {
       if (this.salary === null) {
-        alert('Input invalid.')
+        this.salaryIsNotFilled = true;
       } else {
+        this.salaryIsNotFilled = false;
         this.total = this.salary - this.outgoing;
       }
     },

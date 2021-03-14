@@ -1,11 +1,17 @@
 <template>
   <div id="header">
-    <h1>Budget App</h1>
+    <h1>{{ title }}</h1>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    title: {
+      type: String,
+    },
+  },
+};
 </script>
 
 <style>
@@ -19,6 +25,5 @@ export default {};
 h1 {
   padding-top: 15px;
   font-size: 25px;
-  
 }
 </style>
