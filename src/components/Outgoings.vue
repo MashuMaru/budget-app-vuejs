@@ -2,7 +2,7 @@
   <div>
     <p>
       <span class="utility-nc">{{ utilityName }}: </span>
-      <span class="utility-nc">{{ utilityCost }}</span>
+      <span class="utility-nc">£{{ utilityCost }}</span>
       <span><button class="utility-btn">X</button></span>
     </p>
   </div>
@@ -15,7 +15,7 @@ export default {
       type: String,
     },
     utilityCost: {
-      type: Number,
+      type: String,
     },
   },
   data: function() {
@@ -44,12 +44,11 @@ p {
 }
 
 .utility-btn {
-  border: none !important; 
-
+  border: none !important;
 }
 
 .utility-btn:hover {
-  border-radius:100% !important; 
+  border-radius: 100% !important;
   background-color: red;
 }
 </style>

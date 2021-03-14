@@ -3,7 +3,7 @@
     <Header title="Budget App" />
     <Salary v-on:outgoingSalary="salaryInput" />
     <!-- v-on:keyup="calculate" add back to <Salary /> for calculation on entering keys -->
-    <OutgoingInputs />
+    <OutgoingInputs v-on:cost-information="addExpenditure" />
     <Outgoings
       v-for="cost in costInformation"
       v-bind:key="cost"
@@ -16,7 +16,7 @@
     <p v-if="salaryIsNotFilled">You have to enter a salary first.</p>
     <button v-on:click="calculate">Calculate</button>
     <p class="total">
-      Total: <span class="total-span"> {{ total }} </span>
+      Remaining budget: <span class="total-span"> {{ total }} </span>
     </p>
   </div>
 </template>
@@ -29,11 +29,11 @@ import OutgoingInputs from "./components/OutgoingInputs.vue";
 import Outgoings from "./components/Outgoings.vue";
 
 export default {
-  provide: function() {
-    return {
-      costInfo: this.costInformation,
-    };
-  },
+  // provide: function() {
+  //   return {
+  //     costInfo: this.costInformation,
+  //   };
+  // },
   components: { Header, Salary, TotalOutgoing, OutgoingInputs, Outgoings },
   data: function() {
     return {
@@ -45,12 +45,7 @@ export default {
         {
           id: "first-entry",
           utility: "Rent",
-          cost: "£1000",
-        },
-        {
-          id: "first-entry",
-          utility: "Rent",
-          cost: "£1000",
+          cost: "1000",
         },
       ],
     };
@@ -70,6 +65,14 @@ export default {
         this.total = "£" + (this.salary - this.outgoing);
       }
     },
+    addExpenditure(utilityName, utilityCost ) {
+      const newCost = {
+        id: new Date().toISOString(),
+        utility: utilityName,
+        cost: utilityCost,
+      }
+      this.costInformation.unshift(newCost);
+    }
   },
 };
 </script>

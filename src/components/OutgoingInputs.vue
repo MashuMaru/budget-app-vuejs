@@ -3,7 +3,7 @@
     <h3>Outgoings</h3>
     <form v-on:submit.prevent="submitCosts">
       <input type="text" placeholder="Utility" v-model="utility" />
-      <input type="number" placeholder="Cost" v-model="cost" />
+      <input type="text" placeholder="Cost" v-model="cost" />
       <button>Add</button>
     </form>
   </div>
