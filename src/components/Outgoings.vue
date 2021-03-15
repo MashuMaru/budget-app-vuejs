@@ -1,20 +1,32 @@
 <template>
   <div>
-    <div>
-      <span class="utility-nc">{{ utilityName }}: £{{ utilityCost }}</span>
-      <!-- <span class="utility-nc">£{{ utilityCost }}</span> -->
-      <span>
-        <button
-          class="utility-btn"
-          v-on:mouseover="mousedOver = true"
-          v-on:mouseleave="mousedOver = false"
-          name="delete"
-          v-on:click="deleteUtility(id)">
-          X
-        </button>
-      </span>
-      <label for="delete" v-if="mousedOver">delete</label>
+    <div class="outgoings-section">
+      <p>{{ utilityName }}:</p>
+      <p>£{{ utilityCost }}</p>
+      <button
+        class="utility-btn"
+        v-on:mouseover="mousedOver = true"
+        v-on:mouseleave="mousedOver = false"
+        name="delete"
+        v-on:click="deleteUtility(id)"
+      >
+        X
+      </button>
     </div>
+    <!-- <span class="utility-nc">{{ utilityName }}: £{{ utilityCost }}</span> -->
+    <!-- <span class="utility-nc">£{{ utilityCost }}</span> -->
+    <span>
+      <!-- <button
+        class="utility-btn"
+        v-on:mouseover="mousedOver = true"
+        v-on:mouseleave="mousedOver = false"
+        name="delete"
+        v-on:click="deleteUtility(id)"
+      >
+        X
+      </button> -->
+    </span>
+    <label for="delete" v-if="mousedOver">delete</label>
   </div>
 </template>
 
@@ -35,11 +47,11 @@ export default {
 </script>
 
 <style scoped>
-input {
+/* input {
   pointer-events: none;
   border-bottom: 1px solid green;
   text-align: center;
-}
+} */
 
 label {
   font-style: italic;
@@ -48,19 +60,39 @@ label {
 }
 
 .utility-nc {
-  margin-left: 25px;
-  margin-right: 25px;
+  /* margin-left: 15px; */
+  margin-right: 10px;
   border-bottom: 1px solid #44a6a1;
-  width: 150px;
   color: white;
 }
 
 .utility-btn {
   border: none !important;
+  color: #f39189;
+  transition: all 0.1s ease 0s;
 }
 
 .utility-btn:hover {
   background-color: transparent;
   color: #f39189;
+  transition: transform 0.1s, visibility 0.1s ease-in;
+    -ms-transform: scale(1.5);  
+    -webkit-transform: scale(1.5); 
+}
+
+p {
+  display: inline-block;
+  /* margin-right: 15px; */
+  margin-left: 15px;
+  /* border-bottom: 1px solid #44a6a1;  */
+}
+
+.outgoings-section {
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-block;
+  border-bottom: 1px solid #44a6a1; 
+  text-align: right;
+  width: 250px;
 }
 </style>

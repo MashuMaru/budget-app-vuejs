@@ -169,6 +169,7 @@ button {
   border-radius: 10px;
   padding: 10px;
   cursor: pointer;
+  transition: all 0.5s ease 0s;
   /* outline: none; */
 }
 
@@ -176,6 +177,9 @@ button:hover {
   border: 1px solid #2fac97;
   background-color: #2fac97;
   color: black;
+  transition: transform 0.5s, visibility 0.5s ease-in;
+    -ms-transform: scale(1.1);  
+    -webkit-transform: scale(1.1); 
 }
 
 .total {
