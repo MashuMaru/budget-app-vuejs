@@ -12,7 +12,7 @@
           v-on:click="deleteUtility(id)">
           X
         </button>
-        </span>
+      </span>
       <label for="delete" v-if="mousedOver">delete</label>
     </div>
   </div>
@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  inject: ['deleteUtility'],
+  inject: ["deleteUtility"],
   props: {
     utilityName: String,
     utilityCost: String,
@@ -44,7 +44,6 @@ label {
   font-style: italic;
   font-size: 14px;
   position: absolute;
-
 }
 
 .utility-nc {

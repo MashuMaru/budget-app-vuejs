@@ -93,9 +93,11 @@ export default {
       }
     },
     deleteUtility(utilityId) {
-      const thisUtility = this.costInformation.filter(cost => cost.id === utilityId);
+      const thisUtility = this.costInformation.filter(
+        (cost) => cost.id === utilityId
+      );
       this.costInformation.splice(thisUtility, 1);
-    }
+    },
   },
 };
 </script>
