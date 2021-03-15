@@ -17,7 +17,9 @@
       />
       <TotalOutgoing v-on:outgoingCost="outgoingSum" />
       <!-- v-on:keyup="calculate" add back to <TotalOutgoing /> for calculation on entering keys -->
-      <p v-if="salaryIsNotFilled">You have to enter a salary first.</p>
+      <p class="error-text" v-if="salaryIsNotFilled">
+        You have to enter a salary first.
+      </p>
       <button v-on:click="calculate">Calculate</button>
       <p class="total">
         Remaining budget: <span class="total-span"> {{ total }} </span>
@@ -34,6 +36,11 @@ import OutgoingInputs from "./components/OutgoingInputs.vue";
 import Outgoings from "./components/Outgoings.vue";
 
 export default {
+  provide: function() {
+    return {
+      deleteUtility: this.deleteUtility,
+    };
+  },
   components: {
     Header,
     Salary,
@@ -85,6 +92,10 @@ export default {
         this.costInformation.unshift(newCost);
       }
     },
+    deleteUtility(utilityId) {
+      const thisUtility = this.costInformation.filter(cost => cost.id === utilityId);
+      this.costInformation.splice(thisUtility, 1);
+    }
   },
 };
 </script>
@@ -160,5 +171,11 @@ button:hover {
 .total-span {
   color: #44a6a1;
   font-weight: bold;
+}
+
+.error-text {
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-style: italic;
 }
 </style>

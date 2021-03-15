@@ -8,7 +8,8 @@
           class="utility-btn"
           v-on:mouseover="mousedOver = true"
           v-on:mouseleave="mousedOver = false"
-          name="delete">
+          name="delete"
+          v-on:click="deleteUtility(id)">
           X
         </button>
         </span>
@@ -19,6 +20,7 @@
 
 <script>
 export default {
+  inject: ['deleteUtility'],
   props: {
     utilityName: String,
     utilityCost: String,
