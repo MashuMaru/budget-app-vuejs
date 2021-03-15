@@ -22,6 +22,7 @@
 export default {
   inject: ["deleteUtility"],
   props: {
+    id: String,
     utilityName: String,
     utilityCost: String,
   },

@@ -3,9 +3,16 @@
     <Dialog v-if="!inputIsValid" />
     <h3>Outgoings</h3>
     <form v-on:submit.prevent="submitCosts">
-      <input type="text" placeholder="Utility" v-model="utility" />
-      <input type="text" placeholder="Cost" v-model="cost" />
-      <button>Add</button>
+      <input
+        type="text"
+        placeholder="Utility"
+       
+        ref="utilityInput"
+      />
+       <!-- v-model="utility" -->
+      <input type="text" placeholder="Cost" ref="costInput" />
+      <!-- v-model="cost" -->
+      <button type="submit">Add</button>
     </form>
   </div>
 </template>
@@ -15,22 +22,31 @@ import Dialog from "./Dialog.vue";
 
 export default {
   components: { Dialog },
-  emits: ["cost-information"],
+  //NEW BELOW
+  inject: ["addCost"],
+  //NEW ABOVE
+  // emits: ["cost-information"],
   data: function() {
     return {
-      utility: "",
-      cost: "",
+      // utility: "",
+      // cost: "",
       inputIsValid: true,
     };
   },
   methods: {
     submitCosts() {
+      //NEW BELOW
+      const utilityName = this.$refs.utilityInput.value;
+      const utilityCost = this.$refs.costInput.value;
+      //NEW ABOVE
       if (this.utility === "" && this.cost === "") {
         this.inputIsValid = false;
+        return;
       } else {
-        this.$emit("cost-information", this.utility, this.cost);
-        this.utility = "";
-        this.cost = "";
+        // this.$emit("cost-information", this.utility, this.cost);
+        this.addCost(utilityName, utilityCost);
+        // this.utility = "";
+        // this.cost = "";
       }
     },
     close() {

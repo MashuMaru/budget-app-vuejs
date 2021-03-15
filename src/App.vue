@@ -7,10 +7,11 @@
         v-on:click="salaryIsNotFilled = false"
       />
       <!-- v-on:keyup="calculate" add back to <Salary /> for calculation on entering keys -->
-      <OutgoingInputs v-on:cost-information="addExpenditure" />
+      <OutgoingInputs />
+      <!-- v-on:cost-information="addExpenditure" add back to OutgoingInputs if doesnt work.-->
       <Outgoings
         v-for="cost in costInformation"
-        v-bind:key="cost"
+        v-bind:key="cost.id"
         v-bind:id="cost.id"
         v-bind:utilityName="cost.utility"
         v-bind:utilityCost="cost.cost"
@@ -38,6 +39,7 @@ import Outgoings from "./components/Outgoings.vue";
 export default {
   provide: function() {
     return {
+      addCost: this.addExpenditure,
       deleteUtility: this.deleteUtility,
     };
   },
@@ -58,7 +60,17 @@ export default {
       costInformation: [
         {
           id: "first-entry",
-          utility: "Rent",
+          utility: "One",
+          cost: "1000",
+        },
+        {
+          id: "second-entry",
+          utility: "Two",
+          cost: "1000",
+        },
+        {
+          id: "third-entry",
+          utility: "Three",
           cost: "1000",
         },
       ],
@@ -76,6 +88,8 @@ export default {
         this.salaryIsNotFilled = true;
       } else {
         this.salaryIsNotFilled = false;
+        // const totalCosts = this.costInformation[2].cost;
+        // console.log(totalCosts);
         this.total = "£" + (this.salary - this.outgoing);
       }
     },
@@ -89,13 +103,12 @@ export default {
           utility: utilityName,
           cost: utilityCost,
         };
+        console.log(newCost);
         this.costInformation.unshift(newCost);
       }
     },
-    deleteUtility(utilityId) {
-      const thisUtility = this.costInformation.filter(
-        (cost) => cost.id === utilityId
-      );
+    deleteUtility(costId) {
+      const thisUtility = this.costInformation.map(cost => cost.id).indexOf(costId);
       this.costInformation.splice(thisUtility, 1);
     },
   },
