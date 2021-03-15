@@ -1,26 +1,28 @@
 <template>
-  <div id="main">
-    <Header title="Budget App" />
-    <Salary
-      v-on:outgoingSalary="salaryInput"
-      v-on:click="salaryIsNotFilled = false"
-    />
-    <!-- v-on:keyup="calculate" add back to <Salary /> for calculation on entering keys -->
-    <OutgoingInputs v-on:cost-information="addExpenditure" />
-    <Outgoings
-      v-for="cost in costInformation"
-      v-bind:key="cost"
-      v-bind:id="cost.id"
-      v-bind:utilityName="cost.utility"
-      v-bind:utilityCost="cost.cost"
-    />
-    <TotalOutgoing v-on:outgoingCost="outgoingSum" />
-    <!-- v-on:keyup="calculate" add back to <TotalOutgoing /> for calculation on entering keys -->
-    <p v-if="salaryIsNotFilled">You have to enter a salary first.</p>
-    <button v-on:click="calculate">Calculate</button>
-    <p class="total">
-      Remaining budget: <span class="total-span"> {{ total }} </span>
-    </p>
+  <div class="main-background">
+    <div id="main">
+      <Header title="Budget App" />
+      <Salary
+        v-on:outgoingSalary="salaryInput"
+        v-on:click="salaryIsNotFilled = false"
+      />
+      <!-- v-on:keyup="calculate" add back to <Salary /> for calculation on entering keys -->
+      <OutgoingInputs v-on:cost-information="addExpenditure" />
+      <Outgoings
+        v-for="cost in costInformation"
+        v-bind:key="cost"
+        v-bind:id="cost.id"
+        v-bind:utilityName="cost.utility"
+        v-bind:utilityCost="cost.cost"
+      />
+      <TotalOutgoing v-on:outgoingCost="outgoingSum" />
+      <!-- v-on:keyup="calculate" add back to <TotalOutgoing /> for calculation on entering keys -->
+      <p v-if="salaryIsNotFilled">You have to enter a salary first.</p>
+      <button v-on:click="calculate">Calculate</button>
+      <p class="total">
+        Remaining budget: <span class="total-span"> {{ total }} </span>
+      </p>
+    </div>
   </div>
 </template>
 
@@ -32,18 +34,20 @@ import OutgoingInputs from "./components/OutgoingInputs.vue";
 import Outgoings from "./components/Outgoings.vue";
 
 export default {
-  // provide: function() {
-  //   return {
-  //     costInfo: this.costInformation,
-  //   };
-  // },
-  components: { Header, Salary, TotalOutgoing, OutgoingInputs, Outgoings },
+  components: {
+    Header,
+    Salary,
+    TotalOutgoing,
+    OutgoingInputs,
+    Outgoings,
+  },
   data: function() {
     return {
       salary: null,
       outgoing: null,
       total: null,
       salaryIsNotFilled: false,
+      outgoingIsNotFilled: false,
       costInformation: [
         {
           id: "first-entry",
@@ -70,7 +74,8 @@ export default {
     },
     addExpenditure(utilityName, utilityCost) {
       if (utilityName === "" && utilityCost === "") {
-        alert("INVALID INPUTS.");
+        this.outgoingIsNotFilled = true;
+        // alert("INVALID INPUTS.");
       } else {
         const newCost = {
           id: new Date().toISOString(),
@@ -85,12 +90,29 @@ export default {
 </script>
 
 <style>
+html {
+  padding: 0;
+  background-color: #14121b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.main-background {
+  background-color: #14121b;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
 #main {
   width: 80%;
-  height: 600px;
+  max-width: 500px;
+  min-height: 600px;
   margin-left: auto;
   margin-right: auto;
-  background-color: black;
+
   background-color: #2a253a;
   border-radius: 25px;
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -121,7 +143,7 @@ button {
   border-radius: 10px;
   padding: 10px;
   cursor: pointer;
-  outline: none;
+  /* outline: none; */
 }
 
 button:hover {
@@ -132,6 +154,7 @@ button:hover {
 
 .total {
   color: white;
+  margin-top: 25px;
 }
 
 .total-span {

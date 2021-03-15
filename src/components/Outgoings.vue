@@ -1,8 +1,8 @@
 <template>
   <div>
     <div>
-      <span class="utility-nc">{{ utilityName }}: </span>
-      <span class="utility-nc">£{{ utilityCost }}</span>
+      <span class="utility-nc">{{ utilityName }}: £{{ utilityCost }}</span>
+      <!-- <span class="utility-nc">£{{ utilityCost }}</span> -->
       <span>
         <button
           class="utility-btn"
@@ -42,6 +42,7 @@ label {
   font-style: italic;
   font-size: 14px;
   position: absolute;
+
 }
 
 .utility-nc {
