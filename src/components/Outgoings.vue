@@ -36,7 +36,8 @@ export default {
   props: {
     id: String,
     utilityName: String,
-    utilityCost: String,
+    utilityCost: Number,
+    // utilityCost: String,
   },
   data: function() {
     return {
@@ -76,14 +77,15 @@ label {
   background-color: transparent;
   color: #f39189;
   transition: transform 0.1s, visibility 0.1s ease-in;
-    -ms-transform: scale(1.5);  
-    -webkit-transform: scale(1.5); 
+  -ms-transform: scale(1.5);
+  -webkit-transform: scale(1.5);
 }
 
 p {
   display: inline-block;
-  /* margin-right: 15px; */
   margin-left: 15px;
+  margin-top: 8px;
+  margin-bottom: 8px;
   /* border-bottom: 1px solid #44a6a1;  */
 }
 
@@ -91,7 +93,7 @@ p {
   margin-left: auto;
   margin-right: auto;
   display: inline-block;
-  border-bottom: 1px solid #44a6a1; 
+  border-bottom: 1px solid #44a6a1;
   text-align: right;
   width: 250px;
 }

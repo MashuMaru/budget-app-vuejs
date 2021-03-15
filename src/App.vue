@@ -5,10 +5,11 @@
       <Salary
         v-on:outgoingSalary="salaryInput"
         v-on:click="salaryIsNotFilled = false"
+        v-on:keyup="calculate"
       />
       <!-- v-on:keyup="calculate" add back to <Salary /> for calculation on entering keys -->
-      <OutgoingInputs />
-      <!-- v-on:cost-information="addExpenditure" add back to OutgoingInputs if doesnt work.-->
+      <OutgoingInputs v-on:cost-information="addExpenditure" />
+
       <Outgoings
         v-for="cost in costInformation"
         v-bind:key="cost.id"
@@ -16,10 +17,10 @@
         v-bind:utilityName="cost.utility"
         v-bind:utilityCost="cost.cost"
       />
-      <TotalOutgoing v-on:outgoingCost="outgoingSum" />
+      <TotalOutgoing v-bind:total="outgoing" />
       <!-- v-on:keyup="calculate" add back to <TotalOutgoing /> for calculation on entering keys -->
       <p class="error-text" v-if="salaryIsNotFilled">
-        You have to enter a salary first.
+        You have to enter an income first.
       </p>
       <button v-on:click="calculate">Calculate</button>
       <p class="total">
@@ -37,9 +38,9 @@ import OutgoingInputs from "./components/OutgoingInputs.vue";
 import Outgoings from "./components/Outgoings.vue";
 
 export default {
+  emits: ["total-outgoing"],
   provide: function() {
     return {
-      addCost: this.addExpenditure,
       deleteUtility: this.deleteUtility,
     };
   },
@@ -58,39 +59,42 @@ export default {
       salaryIsNotFilled: false,
       outgoingIsNotFilled: false,
       costInformation: [
-        {
-          id: "first-entry",
-          utility: "One",
-          cost: "1000",
-        },
-        {
-          id: "second-entry",
-          utility: "Two",
-          cost: "1000",
-        },
-        {
-          id: "third-entry",
-          utility: "Three",
-          cost: "1000",
-        },
+        // {
+        //   id: "first-entry",
+        //   utility: "One",
+        //   cost: 1000,
+        // },
+        // {
+        //   id: "second-entry",
+        //   utility: "Two",
+        //   cost: 1000,
+        // },
+        // {
+        //   id: "third-entry",
+        //   utility: "Three",
+        //   cost: 1000,
+        // },
       ],
     };
   },
   methods: {
     outgoingSum(value) {
-      this.outgoing = parseInt(value);
+      this.outgoing = value;
     },
     salaryInput(value) {
       this.salary = parseInt(value);
     },
     calculate() {
+      const objectTotal = this.costInformation.map((cost) => cost.cost);
+      const totalSum = objectTotal.reduce((acc, item) => acc + item, 0);
+      console.log("total outgoing: " + totalSum);
+      this.outgoing = "£" + totalSum;
       if (this.salary === null) {
         this.salaryIsNotFilled = true;
       } else {
         this.salaryIsNotFilled = false;
-        // const totalCosts = this.costInformation[2].cost;
-        // console.log(totalCosts);
-        this.total = "£" + (this.salary - this.outgoing);
+        const remain = (this.total = "£" + (this.salary - totalSum));
+        console.log("total remain: " + remain);
       }
     },
     addExpenditure(utilityName, utilityCost) {
@@ -101,14 +105,17 @@ export default {
         const newCost = {
           id: new Date().toISOString(),
           utility: utilityName,
-          cost: utilityCost,
+          cost: parseInt(utilityCost),
         };
         console.log(newCost);
         this.costInformation.unshift(newCost);
       }
+      this.calculate();
     },
     deleteUtility(costId) {
-      const thisUtility = this.costInformation.map(cost => cost.id).indexOf(costId);
+      const thisUtility = this.costInformation
+        .map((cost) => cost.id)
+        .indexOf(costId);
       this.costInformation.splice(thisUtility, 1);
     },
   },
@@ -178,8 +185,8 @@ button:hover {
   background-color: #2fac97;
   color: black;
   transition: transform 0.5s, visibility 0.5s ease-in;
-    -ms-transform: scale(1.1);  
-    -webkit-transform: scale(1.1); 
+  -ms-transform: scale(1.05);
+  -webkit-transform: scale(1.05);
 }
 
 .total {
@@ -197,4 +204,5 @@ button:hover {
   font-weight: bold;
   font-style: italic;
 }
+
 </style>
