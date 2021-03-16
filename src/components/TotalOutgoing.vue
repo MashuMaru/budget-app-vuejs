@@ -46,6 +46,7 @@ p {
   /* margin-right: 15px; */
   margin-left: 15px;
   border-bottom: 1px solid #44a6a1;
+  width: 50px;
   /* border-bottom: 1px solid #44a6a1;  */
 }
 

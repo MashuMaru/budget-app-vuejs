@@ -6,7 +6,7 @@
       <input
         type="text"
         placeholder="Utility"
-       
+        maxlength="15"
         ref="utilityInput"
         v-model="utility"
       />

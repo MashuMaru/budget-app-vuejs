@@ -7,7 +7,6 @@
         v-on:click="salaryIsNotFilled = false"
         v-on:keyup="calculate"
       />
-      <!-- v-on:keyup="calculate" add back to <Salary /> for calculation on entering keys -->
       <OutgoingInputs v-on:cost-information="addExpenditure" />
       <div class="outgoings-scroll">
         <Outgoings
@@ -19,14 +18,19 @@
         />
       </div>
       <TotalOutgoing v-bind:total="outgoing" />
-      <!-- v-on:keyup="calculate" add back to <TotalOutgoing /> for calculation on entering keys -->
       <p class="error-text" v-if="salaryIsNotFilled">
         You have to enter an income first.
       </p>
       <button v-on:click="calculate">Calculate</button>
       <p class="total">
-        Remaining budget: <span class="total-span"> {{ total }} </span>
+        Remaining balance: 
+        <!-- <span class="total-span" v-bind:class="[numBelowZero ? 'belowZero' : null]"> -->
+          <span class="total-span" v-bind:class="{ belowZero: numBelowZero}"> 
+          £{{ total }}
+        </span>
+        <span v-if="numBelowZero" class="belowZero"><p>Whooa... Gone a bit below there.</p></span>
       </p>
+      
     </div>
   </div>
 </template>
@@ -77,6 +81,7 @@ export default {
         // },
       ],
       numBelowZero: false,
+      // belowZero: false,
     };
   },
   methods: {
@@ -91,13 +96,28 @@ export default {
       const totalSum = objectTotal.reduce((acc, item) => acc + item, 0);
       console.log("total outgoing: " + totalSum);
       this.outgoing = "£" + totalSum;
+
       if (this.salary === null) {
         this.salaryIsNotFilled = true;
         this.outgoing = null;
       } else {
         this.salaryIsNotFilled = false;
-        const remain = (this.total = "£" + (this.salary - totalSum));
-        console.log("total remain: " + remain);
+        const remain = (this.total = this.salary - totalSum);
+        // const remain = (this.total = "£" + (this.salary - totalSum));
+        // new code
+        if (remain <= 0) {
+          this.numBelowZero = true;
+          console.log("numZero is set to:" + this.numBelowZero + remain);
+        } else {
+          this.numBelowZero = false;
+        }
+        if(this.numBelowZero === true) {
+          return 'belowZero';
+        } else {
+          return null;
+        }
+        // new code above
+        // console.log("total remain: " + remain);
       }
     },
     addExpenditure(utilityName, utilityCost) {
@@ -121,6 +141,17 @@ export default {
         .indexOf(costId);
       this.costInformation.splice(thisUtility, 1);
       this.outgoing = null;
+      this.calculate();
+    },
+  },
+  watch: {
+    calculate() {
+      const totalValue = this.total.value;
+      if (totalValue < 0) {
+        this.numBelowZero = true;
+      } else {
+        this.numBelowZero = !this.numBelowZero;
+      }
     },
   },
 };
@@ -128,6 +159,7 @@ export default {
 
 <style>
 html {
+  height: 100vh;
   padding: 0;
   background-color: #14121b;
   overflow: hidden;
@@ -160,6 +192,8 @@ html {
   text-align: center;
   color: white;
   margin-top: 60px;
+  /* margin-top: auto;
+  margin-bottom: auto; */
   overflow: hidden;
 }
 input {
@@ -211,16 +245,23 @@ button:hover {
   margin-bottom: 15px;
   font-weight: bold;
   font-style: italic;
+  color: #f74e3f;
 }
 
 .outgoings-scroll {
   /* height: 350px; */
-  overflow: auto;
-  max-height: 450px;
+  overflow:auto;
+  max-height: 400px;
   /* overflow-y: scroll; */
 }
 
+@media only screen and (max-height: 1000px) {
+  .outgoings-scroll {
+    max-height: 200px;
+  }
+}
+
 .belowZero {
-  color: #f39189;
+  color: #f39189 !important;
 }
 </style>

@@ -26,7 +26,7 @@
         X
       </button> -->
     </span>
-    <label for="delete" v-if="mousedOver">delete</label>
+    <!-- <label for="delete" v-if="mousedOver">delete</label> -->
   </div>
 </template>
 
@@ -41,7 +41,7 @@ export default {
   },
   data: function() {
     return {
-      mousedOver: false,
+      // mousedOver: false,
     };
   },
 };
