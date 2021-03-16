@@ -8,24 +8,9 @@
         v-on:mouseover="mousedOver = true"
         v-on:mouseleave="mousedOver = false"
         name="delete"
-        v-on:click="deleteUtility(id)"
-      >
-        X
-      </button>
+        v-on:click="deleteUtility(id)">X</button>
     </div>
-    <!-- <span class="utility-nc">{{ utilityName }}: £{{ utilityCost }}</span> -->
-    <!-- <span class="utility-nc">£{{ utilityCost }}</span> -->
-    <span>
-      <!-- <button
-        class="utility-btn"
-        v-on:mouseover="mousedOver = true"
-        v-on:mouseleave="mousedOver = false"
-        name="delete"
-        v-on:click="deleteUtility(id)"
-      >
-        X
-      </button> -->
-    </span>
+    <span> </span>
     <!-- <label for="delete" v-if="mousedOver">delete</label> -->
   </div>
 </template>
@@ -37,23 +22,16 @@ export default {
     id: String,
     utilityName: String,
     utilityCost: Number,
-    // utilityCost: String,
   },
   data: function() {
     return {
-      // mousedOver: false,
+      mousedOver: false,
     };
   },
 };
 </script>
 
 <style scoped>
-/* input {
-  pointer-events: none;
-  border-bottom: 1px solid green;
-  text-align: center;
-} */
-
 label {
   font-style: italic;
   font-size: 14px;
@@ -61,7 +39,6 @@ label {
 }
 
 .utility-nc {
-  /* margin-left: 15px; */
   margin-right: 10px;
   border-bottom: 1px solid #44a6a1;
   color: white;
@@ -86,7 +63,6 @@ p {
   margin-left: 15px;
   margin-top: 8px;
   margin-bottom: 8px;
-  /* border-bottom: 1px solid #44a6a1;  */
 }
 
 .outgoings-section {

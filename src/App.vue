@@ -23,14 +23,10 @@
       </p>
       <button v-on:click="calculate">Calculate</button>
       <p class="total">
-        Remaining balance: 
-        <!-- <span class="total-span" v-bind:class="[numBelowZero ? 'belowZero' : null]"> -->
-          <span class="total-span" v-bind:class="{ belowZero: numBelowZero}"> 
-          £{{ total }}
-        </span>
+        Remaining balance:
+        <span class="total-span" v-bind:class="{ belowZero: numBelowZero }">£{{ total }}</span>
         <span v-if="numBelowZero" class="belowZero"><p>Whooa... Gone a bit below there.</p></span>
       </p>
-      
     </div>
   </div>
 </template>
@@ -69,19 +65,8 @@ export default {
         //   utility: "One",
         //   cost: 1000,
         // },
-        // {
-        //   id: "second-entry",
-        //   utility: "Two",
-        //   cost: 1000,
-        // },
-        // {
-        //   id: "third-entry",
-        //   utility: "Three",
-        //   cost: 1000,
-        // },
       ],
       numBelowZero: false,
-      // belowZero: false,
     };
   },
   methods: {
@@ -99,31 +84,28 @@ export default {
 
       if (this.salary === null) {
         this.salaryIsNotFilled = true;
-        this.outgoing = null;
+        //REMOVED THE BELOW INCASE CHANGE OCCURS ON INCOME
+        // this.outgoing = null;
+        //REMOVED THE ABOVE INCASE CHANGE OCCURS ON INCOME
       } else {
         this.salaryIsNotFilled = false;
         const remain = (this.total = this.salary - totalSum);
-        // const remain = (this.total = "£" + (this.salary - totalSum));
-        // new code
         if (remain <= 0) {
           this.numBelowZero = true;
           console.log("numZero is set to:" + this.numBelowZero + remain);
         } else {
           this.numBelowZero = false;
         }
-        if(this.numBelowZero === true) {
-          return 'belowZero';
+        if (this.numBelowZero === true) {
+          return "belowZero";
         } else {
           return null;
         }
-        // new code above
-        // console.log("total remain: " + remain);
       }
     },
     addExpenditure(utilityName, utilityCost) {
       if (utilityName === "" && utilityCost === "") {
         this.outgoingIsNotFilled = true;
-        // alert("INVALID INPUTS.");
       } else {
         const newCost = {
           id: new Date().toISOString(),
@@ -142,16 +124,6 @@ export default {
       this.costInformation.splice(thisUtility, 1);
       this.outgoing = null;
       this.calculate();
-    },
-  },
-  watch: {
-    calculate() {
-      const totalValue = this.total.value;
-      if (totalValue < 0) {
-        this.numBelowZero = true;
-      } else {
-        this.numBelowZero = !this.numBelowZero;
-      }
     },
   },
 };
@@ -192,8 +164,6 @@ html {
   text-align: center;
   color: white;
   margin-top: 60px;
-  /* margin-top: auto;
-  margin-bottom: auto; */
   overflow: hidden;
 }
 input {
@@ -218,7 +188,6 @@ button {
   padding: 10px;
   cursor: pointer;
   transition: all 0.5s ease 0s;
-  /* outline: none; */
 }
 
 button:hover {
@@ -249,10 +218,8 @@ button:hover {
 }
 
 .outgoings-scroll {
-  /* height: 350px; */
-  overflow:auto;
+  overflow: auto;
   max-height: 400px;
-  /* overflow-y: scroll; */
 }
 
 @media only screen and (max-height: 1000px) {

@@ -25,7 +25,6 @@ export default {
 
 h1 {
   padding-top: 25px;
-  /* margin-bottom: 15px; */
   font-size: 25px;
 }
 
