@@ -20,10 +20,13 @@ export default {
   height: 75px;
   color: white;
   padding: auto;
+  margin-bottom: 25px;
 }
 
 h1 {
-  padding-top: 15px;
+  padding-top: 25px;
+  /* margin-bottom: 15px; */
   font-size: 25px;
 }
+
 </style>
