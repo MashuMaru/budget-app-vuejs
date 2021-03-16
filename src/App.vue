@@ -25,7 +25,7 @@
       </p>
       <button v-on:click="calculate">Calculate</button>
       <p class="total">
-        Remaining budget: <span class="total-span" v-bind:class="!numBelowZero ? 'belowZero' : null"> {{ total }} </span>
+        Remaining budget: <span class="total-span"> {{ total }} </span>
       </p>
     </div>
   </div>
@@ -80,13 +80,6 @@ export default {
     };
   },
   methods: {
-    checkNumBelowZero() {
-      if(this.total < 0) {
-        this.numBelowZero = true;
-      } else {
-        this.numBelowZero = false;
-      }
-    },
     outgoingSum(value) {
       this.outgoing = value;
     },
