@@ -40,7 +40,7 @@ export default {
       // const utilityName = this.$refs.utilityInput.value;
       // const utilityCost = this.$refs.costInput.value;
       //NEW ABOVE
-      if (this.utility === "" && this.cost === null) {
+      if (this.utility === "" || this.cost === null) {
         this.inputIsValid = false;
         // return;
       } else {

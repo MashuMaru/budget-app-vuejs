@@ -1,7 +1,7 @@
 <template>
   <div class="total-section">
     <label for="outgoing">Total Outgoing: </label>
-    <p> {{total}} </p>
+    <p>{{ total }}</p>
     <!-- <input
       id="outgoing"
       placeholder="outgoing"
@@ -38,14 +38,14 @@ export default {
 
 .total-section {
   margin-bottom: 25px;
-  margin-top:25px;
+  margin-top: 25px;
 }
 
 p {
   display: inline-block;
   /* margin-right: 15px; */
   margin-left: 15px;
-  border-bottom: 1px solid #44a6a1; 
+  border-bottom: 1px solid #44a6a1;
   /* border-bottom: 1px solid #44a6a1;  */
 }
 

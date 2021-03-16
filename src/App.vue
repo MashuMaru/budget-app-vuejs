@@ -9,14 +9,15 @@
       />
       <!-- v-on:keyup="calculate" add back to <Salary /> for calculation on entering keys -->
       <OutgoingInputs v-on:cost-information="addExpenditure" />
-
-      <Outgoings
-        v-for="cost in costInformation"
-        v-bind:key="cost.id"
-        v-bind:id="cost.id"
-        v-bind:utilityName="cost.utility"
-        v-bind:utilityCost="cost.cost"
-      />
+      <div class="outgoings-scroll">
+        <Outgoings
+          v-for="cost in costInformation"
+          v-bind:key="cost.id"
+          v-bind:id="cost.id"
+          v-bind:utilityName="cost.utility"
+          v-bind:utilityCost="cost.cost"
+        />
+      </div>
       <TotalOutgoing v-bind:total="outgoing" />
       <!-- v-on:keyup="calculate" add back to <TotalOutgoing /> for calculation on entering keys -->
       <p class="error-text" v-if="salaryIsNotFilled">
@@ -24,7 +25,7 @@
       </p>
       <button v-on:click="calculate">Calculate</button>
       <p class="total">
-        Remaining budget: <span class="total-span"> {{ total }} </span>
+        Remaining budget: <span class="total-span" v-bind:class="!numBelowZero ? 'belowZero' : null"> {{ total }} </span>
       </p>
     </div>
   </div>
@@ -75,9 +76,17 @@ export default {
         //   cost: 1000,
         // },
       ],
+      numBelowZero: false,
     };
   },
   methods: {
+    checkNumBelowZero() {
+      if(this.total < 0) {
+        this.numBelowZero = true;
+      } else {
+        this.numBelowZero = false;
+      }
+    },
     outgoingSum(value) {
       this.outgoing = value;
     },
@@ -91,6 +100,7 @@ export default {
       this.outgoing = "£" + totalSum;
       if (this.salary === null) {
         this.salaryIsNotFilled = true;
+        this.outgoing = null;
       } else {
         this.salaryIsNotFilled = false;
         const remain = (this.total = "£" + (this.salary - totalSum));
@@ -117,6 +127,7 @@ export default {
         .map((cost) => cost.id)
         .indexOf(costId);
       this.costInformation.splice(thisUtility, 1);
+      this.outgoing = null;
     },
   },
 };
@@ -126,6 +137,7 @@ export default {
 html {
   padding: 0;
   background-color: #14121b;
+  overflow: hidden;
 }
 
 * {
@@ -143,6 +155,7 @@ html {
   width: 80%;
   max-width: 500px;
   min-height: 600px;
+  max-height: 900px;
   margin-left: auto;
   margin-right: auto;
 
@@ -154,6 +167,7 @@ html {
   text-align: center;
   color: white;
   margin-top: 60px;
+  overflow: hidden;
 }
 input {
   width: 100px;
@@ -192,6 +206,7 @@ button:hover {
 .total {
   color: white;
   margin-top: 25px;
+  margin-bottom: 50px;
 }
 
 .total-span {
@@ -205,4 +220,14 @@ button:hover {
   font-style: italic;
 }
 
+.outgoings-scroll {
+  /* height: 350px; */
+  overflow: auto;
+  max-height: 450px;
+  /* overflow-y: scroll; */
+}
+
+.belowZero {
+  color: #f39189;
+}
 </style>
