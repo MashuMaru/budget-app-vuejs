@@ -1,24 +1,4 @@
 # budget-app-vuejs
+A basic budget application built using Vue.js. 
+Link to deployed web application can be seen here: https://mashu-budget-app.netlify.app/
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
